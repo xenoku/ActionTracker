@@ -5,15 +5,14 @@
     <title>609-21</title>
 </head>
 <body>
-    <h2>{{$user ? "Список активностей пользователя ".$user->name : ' Неверный ID пользователя' }}</h2>
-    @if($user)
+    <h2>Список активностей:</h2>
     <table border="1">
         <thead>
             <td>id</td>
             <td>Название</td>
             <td>Описание</td>
         </thead>
-        @foreach ($user->activities as $activity)
+        @foreach ($activities as $activity)
             <tr>
                 <td>{{$activity->id}}</td>
                 <td>{{$activity->name}}</td>
@@ -21,6 +20,5 @@
             </tr>
         @endforeach
     </table>
-    @endif
 </body>
 </html>

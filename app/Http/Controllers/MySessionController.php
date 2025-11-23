@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\MySession;
 
-class SessionController extends Controller
+class MySessionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('sessions', [
+            'mySessions' => MySession::all()
+        ]);
     }
 
     /**

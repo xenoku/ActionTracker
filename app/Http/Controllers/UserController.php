@@ -11,7 +11,7 @@ class UserController extends Controller
     
     public function index()
     {
-        return view('usersInd', [
+        return view('users', [
             'users' => User::all()
         ]);
     }
@@ -35,9 +35,16 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showActivities(string $id)
     {
-        return view('usersSho', [
+        return view('usersActivities', [
+            'user' => User::all()->where('id', $id)->first()
+        ]);
+    }
+
+    public function showSessions(string $id)
+    {
+        return view('usersSessions', [
             'user' => User::all()->where('id', $id)->first()
         ]);
     }

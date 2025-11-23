@@ -5,22 +5,22 @@
     <title>609-21</title>
 </head>
 <body>
-    <h2>Список активностей:</h2>
+    <h2>{{$user ? "Список занятий пользователя ".$user->name : ' Неверный ID пользователя' }}</h2>
+    @if($user)
     <table border="1">
         <thead>
             <td>id</td>
-            <td>Имя пользователя</td>
             <td>Название</td>
             <td>Описание</td>
         </thead>
-        @foreach ($activities as $activity)
+        @foreach ($user->activities as $activity)
             <tr>
                 <td>{{$activity->id}}</td>
-                <td>{{$activity->user->name}}</td>
                 <td>{{$activity->name}}</td>
                 <td>{{$activity->description}}</td>
             </tr>
         @endforeach
     </table>
+    @endif
 </body>
 </html>

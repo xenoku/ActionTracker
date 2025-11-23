@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Activity extends Model
 {
     use HasFactory;
 
-    public function user(): BelongsTo
+    public function users(): BelongsToMany
     {
-        return $this->belongsTo(User::Class);
+        return $this->belongsTo(User::Class, 'users_activities');
     }
 
     public function sessions(): HasMany
     {
-        return $this->hasMany(Session::Class);
+        return $this->hasMany(mySession::Class);
     }
 }
