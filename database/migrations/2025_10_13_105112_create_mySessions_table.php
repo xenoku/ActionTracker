@@ -13,8 +13,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('activity_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
+            $table->timestamps();
         });
 
         DB::table('my_sessions')->insert([

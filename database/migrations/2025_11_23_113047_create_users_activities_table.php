@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('activity_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamps();
         });
 
         DB::table('users_activities')->insert([

@@ -12,7 +12,9 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->collation('utf8mb4_unicode_ci');
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->text('description')->collation('utf8mb4_unicode_ci');
+            $table->timestamps();
         });
 
         DB::table('activities')->insert([

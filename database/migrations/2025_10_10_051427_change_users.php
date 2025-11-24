@@ -12,8 +12,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('email_verified_at');
             $table->dropColumn('remember_token');
-            $table->dropColumn('created_at');
-            $table->dropColumn('updated_at');
             $table->renameColumn('password', 'password_hash');
         });
 

@@ -13,14 +13,19 @@
             <td>Название занятия</td>
             <td>Время начала</td>
             <td>Время конца</td>
+            <td>Действия</td>
         </thead>
-        @foreach ($mySessions as $session)
+        @foreach ($sessions as $session)
             <tr>
                 <td>{{$session->id}}</td>
                 <td>{{$session->user->name}}</td>
                 <td>{{$session->activity->name}}</td>
                 <td>{{$session->start_time}}</td>
                 <td>{{$session->end_time}}</td>
+                <td>
+                    <a href="{{url('sessions/'.$session->id.'/edit')}}">Изменить</a>
+                    <a href="{{url('sessions/'.$session->id.'/delete')}}">Удалить</a>
+                </td>
             </tr>
         @endforeach
     </table>

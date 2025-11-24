@@ -5,7 +5,7 @@
     <title>609-21</title>
 </head>
 <body>
-    <h2>Список активностей:</h2>
+    <h2>Список занятий:</h2>
     <table border="1">
         <thead>
             <td>id</td>

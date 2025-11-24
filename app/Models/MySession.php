@@ -19,4 +19,11 @@ class mySession extends Model
     {
         return $this->belongsTo(Activity::Class);
     }
+
+    protected $fillable = [
+        'user_id',
+        'activity_id',
+        'start_time',
+        'end_time'
+    ];
 }

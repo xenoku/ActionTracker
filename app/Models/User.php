@@ -16,6 +16,11 @@ class User extends Model
         return $this->belongsToMany(Activity::Class, 'users_activities');
     }
 
+    public function custom_activities(): HasMany
+    {
+        return $this->hasMany(Activity::Class);
+    }
+
     public function sessions(): HasMany
     {
         return $this->hasMany(mySession::Class);

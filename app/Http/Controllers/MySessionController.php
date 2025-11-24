@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MySession;
+use App\Models\User;
+use App\Models\Activity;
 
 class MySessionController extends Controller
 {
@@ -14,7 +16,7 @@ class MySessionController extends Controller
     public function index()
     {
         return view('sessions', [
-            'mySessions' => MySession::all()
+            'sessions' => MySession::all()
         ]);
     }
 
@@ -23,7 +25,10 @@ class MySessionController extends Controller
      */
     public function create()
     {
-        //
+        return view('session_create', [
+            'users' => User::all(),
+            'activities' => Activity::all()
+        ]);
     }
 
     /**
@@ -31,7 +36,15 @@ class MySessionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'required|integer',
+            'activity_id' => 'required|integer',
+            'start_time' => 'required',
+            'end_time' => 'required'
+        ]);
+        $session= new MySession($validated);
+        $session->save();
+        return redirect('/sessions');
     }
 
     /**
@@ -47,7 +60,11 @@ class MySessionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('session_edit', [
+            'session' => MySession::all()->where('id', $id)->first(),
+            'users' => User::all(),
+            'activities' => Activity::all()
+        ]);
     }
 
     /**
@@ -55,7 +72,19 @@ class MySessionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'required|integer',
+            'activity_id' => 'required|integer',
+            'start_time' => 'required',
+            'end_time' => 'required'
+        ]);
+        $session= MySession::all()->where('id', $id)->first();
+        $session->user_id = $validated['user_id'];
+        $session->activity_id = $validated['activity_id'];
+        $session->start_time = $validated['start_time'];
+        $session->end_time = $validated['end_time'];
+        $session->save();
+        return redirect('/sessions');
     }
 
     /**
@@ -63,6 +92,7 @@ class MySessionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        MySession::destroy($id);
+        return redirect('/sessions');
     }
 }
