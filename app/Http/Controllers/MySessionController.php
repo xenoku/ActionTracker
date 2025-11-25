@@ -13,10 +13,11 @@ class MySessionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $perpage = $request->perpage ?? 2;
         return view('sessions', [
-            'sessions' => MySession::all()
+            'sessions' => MySession::paginate($perpage)->withQueryString()
         ]);
     }
 

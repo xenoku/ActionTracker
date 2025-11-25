@@ -21,7 +21,25 @@ return new class extends Migration
         DB::table('my_sessions')->insert([
             ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-22 14:00:00', 'end_time' => '2025-11-22 15:00:00'],
             ['user_id' => 1, 'activity_id' => 2, 'start_time' => '2025-11-22 15:00:00', 'end_time' => '2025-11-22 16:00:00'],
-            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-22 16:00:00', 'end_time' => '2025-11-22 17:00:00']
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-22 16:00:00', 'end_time' => '2025-11-22 17:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-23 14:00:00', 'end_time' => '2025-11-23 15:00:00'],
+            ['user_id' => 1, 'activity_id' => 2, 'start_time' => '2025-11-23 15:00:00', 'end_time' => '2025-11-23 16:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-23 16:00:00', 'end_time' => '2025-11-23 17:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-24 14:00:00', 'end_time' => '2025-11-24 15:00:00'],
+            ['user_id' => 1, 'activity_id' => 2, 'start_time' => '2025-11-24 15:00:00', 'end_time' => '2025-11-24 16:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-24 16:00:00', 'end_time' => '2025-11-24 17:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-25 14:00:00', 'end_time' => '2025-11-25 15:00:00'],
+            ['user_id' => 1, 'activity_id' => 2, 'start_time' => '2025-11-25 15:00:00', 'end_time' => '2025-11-25 16:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-25 16:00:00', 'end_time' => '2025-11-25 17:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-26 14:00:00', 'end_time' => '2025-11-26 15:00:00'],
+            ['user_id' => 1, 'activity_id' => 2, 'start_time' => '2025-11-26 15:00:00', 'end_time' => '2025-11-26 16:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-26 16:00:00', 'end_time' => '2025-11-26 17:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-27 14:00:00', 'end_time' => '2025-11-27 15:00:00'],
+            ['user_id' => 1, 'activity_id' => 2, 'start_time' => '2025-11-27 15:00:00', 'end_time' => '2025-11-27 16:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-27 16:00:00', 'end_time' => '2025-11-27 17:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-28 14:00:00', 'end_time' => '2025-11-28 15:00:00'],
+            ['user_id' => 1, 'activity_id' => 2, 'start_time' => '2025-11-28 15:00:00', 'end_time' => '2025-11-28 16:00:00'],
+            ['user_id' => 1, 'activity_id' => 1, 'start_time' => '2025-11-28 16:00:00', 'end_time' => '2025-11-28 17:00:00']
         ]);
     }
 
