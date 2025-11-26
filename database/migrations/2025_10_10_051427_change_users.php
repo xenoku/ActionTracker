@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -12,13 +13,13 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('email_verified_at');
             $table->dropColumn('remember_token');
-            $table->renameColumn('password', 'password_hash');
+            $table->boolean('is_admin')->default(false);
         });
 
         DB::table('users')->insert([
-            ['name' => 'aboba', 'email' => 'abobaxxx@gmail.com', 'password_hash' => 'f3197ee1c4af34182e7ca3d988fd6f18'],
-            ['name' => 'gooba333', 'email' => 'fwvewwew@gmail.com', 'password_hash' => '1e2a150d41263ce2cc6782f75fd2b4dc'],
-            ['name' => 'seledka', 'email' => 'seld@gmail.com', 'password_hash' => '461c4683cbd2b57a34a8a14a7b91b972']
+            ['name' => 'aboba', 'email' => 'abobaxxx@gmail.com', 'password' => Hash::make('первый'), 'is_admin' => false],
+            ['name' => 'gooba333', 'email' => 'fwvewwew@gmail.com', 'password' => Hash::make('второй'), 'is_admin' => false],
+            ['name' => 'seledka', 'email' => 'seld@gmail.com', 'password' => Hash::make('третий'), 'is_admin' => true]
         ]);
     }
 

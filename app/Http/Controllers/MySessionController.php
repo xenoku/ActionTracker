@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\MySession;
 use App\Models\User;
 use App\Models\Activity;
+use Illuminate\Support\Facades\Gate;
 
 class MySessionController extends Controller
 {
@@ -61,6 +62,9 @@ class MySessionController extends Controller
      */
     public function edit(string $id)
     {
+        if (! Gate::allows('edit-session')) {
+            return redirect('/error')->with('message', 'Вы не обладаете правами администратора для этого');
+        }
         return view('session_edit', [
             'session' => MySession::all()->where('id', $id)->first(),
             'users' => User::all(),
@@ -93,6 +97,9 @@ class MySessionController extends Controller
      */
     public function destroy(string $id)
     {
+        if (! Gate::allows('destroy-session')) {
+            return redirect('/error')->with('message', 'Вы не обладаете правами администратора для этого');
+        }
         MySession::destroy($id);
         return redirect('/sessions');
     }
