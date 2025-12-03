@@ -13,8 +13,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('activity_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamp('start_time')->nullable();
-            $table->timestamp('end_time')->nullable();
+            $table->timestamp('start_time')->useCurrent();
+            $table->timestamp('end_time')->nullable()->default(NULL)->useCurrentOnUpdate();
             $table->timestamps();
         });
 

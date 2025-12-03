@@ -16,7 +16,9 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('login');
+            return redirect()->intended('/main')->withErrors([
+                'success' => 'You successfully entered!'
+            ]);
         }
         return back()->withErrors([
             'error' => 'The provided credentials do not match our records.',
@@ -33,6 +35,8 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('login');
+        return redirect('/login')->withErrors([
+            'success' => 'You exited successfully!'
+        ]);
     }
 }

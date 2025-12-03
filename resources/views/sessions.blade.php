@@ -1,34 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>609-21</title>
-</head>
-<body>
-    <h2>Список сессий:</h2>
-    <table border="1">
+@extends('layout')
+@section('content')
+<main class="d-flex flex-column m-auto" style="min-width: 60%;">
+    <h1 class="h-2">Your sessions list:</h1>
+    <table class="table">
         <thead>
-            <td>id</td>
-            <td>Имя пользователя</td>
-            <td>Название занятия</td>
-            <td>Время начала</td>
-            <td>Время конца</td>
-            <td>Действия</td>
-        </thead>
-        @foreach ($sessions as $session)
             <tr>
-                <td>{{$session->id}}</td>
-                <td>{{$session->user->name}}</td>
+                <th scope="col">#</th>
+                <th scope="col">Activity name</th>
+                <th scope="col">Start time</th>
+                <th scope="col">End time</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php($c = 1)
+            @foreach($sessions as $session)
+            <tr>
+                <th scope="row">{{$c}}</th>
                 <td>{{$session->activity->name}}</td>
                 <td>{{$session->start_time}}</td>
                 <td>{{$session->end_time}}</td>
-                <td>
-                    <a href="{{url('sessions/'.$session->id.'/edit')}}">Изменить</a>
-                    <a href="{{url('sessions/'.$session->id.'/delete')}}">Удалить</a>
-                </td>
+                <td><a href="{{url('sessions/delete/'.$session->id)}}">Удалить</a></td>
             </tr>
-        @endforeach
+            @php($c++)
+            @endforeach
+        </tbody>
     </table>
     {{$sessions->links()}}
-</body>
-</html>
+</main>
+@endsection

@@ -18,9 +18,10 @@ return new class extends Migration
         });
 
         DB::table('activities')->insert([
-            ['name' => 'Спорт', 'description' => 'Качаемся в качалке'],
-            ['name' => 'Чтение', 'description' => 'Читаем азбуку'],
-            ['name' => 'Готовка', 'description' => 'Готовим кушать']
+            ['name' => 'Pause', 'user_id' => NULL, 'description' => 'Don\'t keep records'],
+            ['name' => 'Спорт', 'user_id' => '2', 'description' => 'Качаемся в качалке'],
+            ['name' => 'Чтение', 'user_id' => NULL, 'description' => 'Читаем азбуку'],
+            ['name' => 'Готовка', 'user_id' => NULL, 'description' => 'Готовим кушать']
         ]);
     }
 

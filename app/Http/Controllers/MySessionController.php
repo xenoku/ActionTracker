@@ -8,6 +8,7 @@ use App\Models\MySession;
 use App\Models\User;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class MySessionController extends Controller
 {
@@ -16,10 +17,21 @@ class MySessionController extends Controller
      */
     public function index(Request $request)
     {
-        $perpage = $request->perpage ?? 2;
+        $perpage = $request->perpage ?? 5;
         return view('sessions', [
-            'sessions' => MySession::paginate($perpage)->withQueryString()
+            'sessions' => MySession::where('user_id', Auth::user()->id)->paginate($perpage)->withQueryString()
         ]);
+    }
+
+    public function new(Request $request)
+    {
+        $user = Auth::user();
+        if($user->sessions->last()) $user->sessions->last()->touch();
+        $session= new MySession();
+        $session->user_id = $user->id;
+        $session->activity_id = $request->activity_id;
+        $session->save();
+        return redirect('/main')->withErrors(['success' => 'Activity changed!']);
     }
 
     /**
@@ -97,10 +109,7 @@ class MySessionController extends Controller
      */
     public function destroy(string $id)
     {
-        if (! Gate::allows('destroy-session')) {
-            return redirect('/error')->with('message', 'Вы не обладаете правами администратора для этого');
-        }
         MySession::destroy($id);
-        return redirect('/sessions');
+        return redirect()->back()->withErrors(['success' => 'Session deleted']);
     }
 }

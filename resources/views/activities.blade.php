@@ -1,24 +1,32 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>609-21</title>
-</head>
-<body>
-    <h2>Список занятий:</h2>
-    <table border="1">
+@extends('layout')
+@section('content')
+<main class="d-flex flex-column m-auto" style="min-width: 60%;">
+    <h1 class="h-2">Your activities list:</h1>
+    <table class="table">
         <thead>
-            <td>id</td>
-            <td>Название</td>
-            <td>Описание</td>
-        </thead>
-        @foreach ($activities as $activity)
             <tr>
-                <td>{{$activity->id}}</td>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php($c = 1)
+            @foreach($activities as $activity)
+            <tr>
+                <th scope="row">{{ $c }}</th>
                 <td>{{$activity->name}}</td>
                 <td>{{$activity->description}}</td>
+                <td>
+                    <a class="me-2" href="{{url('activities/edit/'.$activity->id)}}">Редактировать</a>
+                    <a href="{{url('activities/delete/'.$activity->id)}}">Удалить</a>
+                </td>
             </tr>
-        @endforeach
+            @php($c++)
+            @endforeach
+        </tbody>
     </table>
-</body>
-</html>
+    {{$activities->links()}}
+</main>
+@endsection
