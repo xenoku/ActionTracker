@@ -22,7 +22,7 @@
                         <i class="fa fa-user" style="font-size:20px; color:white;"></i>
                         <span>  </span>{{ Auth::user()->name }}
                     </a>
-                    <a class="btn btn-outline-success my-2 my-sm-0" href="{{url('logout')}}">Выйти</a>
+                    <a class="btn btn-outline-success my-2 my-sm-0" href="{{url('logout')}}">Exit</a>
                 </ul>
             </div>
         </div>

@@ -11,7 +11,7 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Route::get('/main', function () {
-    return view('main');
+    return view('main', ['user_name' => session('user_name')]);
 })->middleware('auth');
 
 Route::get('/error', function () {
