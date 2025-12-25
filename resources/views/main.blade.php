@@ -7,7 +7,7 @@
         <div class="d-flex">
             <select class="form-select me-1" id="activity_id" name="activity_id" onchange="this.form.submit()">
                 @foreach ( auth()->user()->activities() as $activity)
-                    <option value="{{ $activity->id }}" data-bs-toggle="tooltip" title="{{$activity->description}}" 
+                    <option value="{{ $activity->id }}" data-bs-toggle="tooltip" title="{{$activity->description}}"
                     @if (auth()->user()->sessions->last())
                         @if (auth()->user()->sessions->last()->activity->id == $activity->id) selected @endif
                     @else
@@ -24,7 +24,6 @@
             </a>
         </div>
     </form>
-</button>
 </main>
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

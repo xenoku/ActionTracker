@@ -12,7 +12,7 @@ class MySessionControllerApi extends Controller
      */
     public function index()
     {
-        return response(MySession::all());
+        return response(MySession::limit($request->perpage ?? 5)->offset(($request->perpage ?? 5) * ($request->page ?? 0))->get());
     }
 
     /**

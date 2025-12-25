@@ -31,7 +31,7 @@ class MySessionController extends Controller
         $session->user_id = $user->id;
         $session->activity_id = $request->activity_id;
         $session->save();
-        return redirect('/main')->withErrors(['success' => 'Activity changed!']);
+        return redirect()->back()->withErrors(['success' => 'Activity changed!']);
     }
 
     /**
