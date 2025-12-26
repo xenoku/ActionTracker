@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityControllerApi extends Controller
 {
@@ -12,7 +13,7 @@ class ActivityControllerApi extends Controller
      */
     public function index()
     {
-        return response(Activity::limit($request->perpage ?? 5)->offset(($request->perpage ?? 5) * ($request->page ?? 0))->get());
+        return response(Activity::where('user_id', Auth::user()->id)->orWhere('user_id', NULL)->get());
     }
 
     /**
@@ -26,9 +27,9 @@ class ActivityControllerApi extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        return response (Activity::find($id));
+        return response(Activity::find($request->id));
     }
 
     /**

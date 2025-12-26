@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MySession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MySessionControllerApi extends Controller
 {
@@ -12,7 +13,7 @@ class MySessionControllerApi extends Controller
      */
     public function index()
     {
-        return response(MySession::limit($request->perpage ?? 5)->offset(($request->perpage ?? 5) * ($request->page ?? 0))->get());
+        return response(MySession::where('user_id', Auth::user()->id)->get());
     }
 
     /**
@@ -26,9 +27,9 @@ class MySessionControllerApi extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        return response (MySession::find($id));
+        return response(MySession::find($request->id));
     }
 
     /**
