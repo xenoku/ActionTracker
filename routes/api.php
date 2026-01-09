@@ -17,6 +17,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/users/{id}', [UserControllerApi::class, 'show']);
     Route::get('/activities', [ActivityControllerApi::class, 'index']);
     Route::get('/activities/{id}', [ActivityControllerApi::class, 'show']);
+    Route::post('/activities/store', [ActivityControllerApi::class, 'store']);
     Route::get('/sessions', [MySessionControllerApi::class, 'index']);
     Route::get('/sessions/{id}', [MySessionControllerApi::class, 'show']);
     Route::get('/logout', [AuthController::class, 'logout']);

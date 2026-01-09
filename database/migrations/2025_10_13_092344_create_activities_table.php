@@ -11,17 +11,18 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255)->collation('utf8mb4_unicode_ci');
-            $table->foreignId('user_id')->nullable()->constrained();
-            $table->text('description')->collation('utf8mb4_unicode_ci');
+            $table->string('name', 255);
+            $table->foreignId('user_id')->nullable()->constrained()->default(NULL);
+            $table->text('description');
+            $table->text('image_url')->nullable();
             $table->timestamps();
         });
 
         DB::table('activities')->insert([
-            ['name' => 'Pause', 'user_id' => NULL, 'description' => 'Don\'t keep records'],
-            ['name' => 'Спорт', 'user_id' => '2', 'description' => 'Качаемся в качалке'],
-            ['name' => 'Чтение', 'user_id' => NULL, 'description' => 'Читаем азбуку'],
-            ['name' => 'Готовка', 'user_id' => NULL, 'description' => 'Готовим кушать']
+            ['name' => 'Working', 'user_id' => NULL, 'description' => 'Making big rocks into little rocks', 'image_url' => 'https://storage.yandexcloud.net/actiontracker-main/activityImages/6960ea931a882_workingIc.jpg'],
+            ['name' => 'Free time', 'user_id' => '2', 'description' => 'Making big rocks into little rocks, but for fun', 'image_url' => 'https://storage.yandexcloud.net/actiontracker-main/activityImages/6960f37b92f6e_freeTimeIc.png'],
+            ['name' => 'Sleeping', 'user_id' => NULL, 'description' => 'Not having dreams and nightmares', 'image_url' => 'https://storage.yandexcloud.net/actiontracker-main/activityImages/6960f2d3e2056_sleepingIc.png'],
+            ['name' => 'Eating', 'user_id' => NULL, 'description' => 'Mostly nutrients', 'image_url' => 'https://storage.yandexcloud.net/actiontracker-main/activityImages/6960f30c0ae71_eatingIc.jpg']
         ]);
     }
 
