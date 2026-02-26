@@ -1,6 +1,9 @@
 # Используем базовый образ PHP с установленным FPM и расширениями
 FROM php:8.4-fpm
 
+RUN sed -i 's|deb.debian.org|mirror.yandex.ru|g' /etc/apt/sources.list && \
+    sed -i 's|security.debian.org|mirror.yandex.ru|g' /etc/apt/sources.list
+
 # Устанавливаем зависимости
 RUN apt update
 RUN apt install -y libpng-dev zip unzip curl git iproute2
