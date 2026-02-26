@@ -25,7 +25,8 @@ COPY --from=composer:2.5 /usr/bin/composer /usr/local/bin/composer
 # Копируем файлы проекта
 WORKDIR /var/www
 COPY composer.json composer.lock* ./
-RUN composer install --no-dev --prefer-dist --no-autoloader
+RUN composer config --global repo.packagist composer https://mirrors.aliyun.com/composer/ && \
+    composer install --no-dev --prefer-dist --no-autoloader --timeout=300
 
 COPY . .
 RUN composer dump-autoload --optimize
