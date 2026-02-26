@@ -25,8 +25,11 @@ COPY --from=composer:2.5 /usr/bin/composer /usr/local/bin/composer
 # Копируем файлы проекта
 WORKDIR /var/www
 COPY composer.json composer.lock* ./
-RUN composer config --global repo.packagist composer https://mirrors.aliyun.com/composer/ && \
-    composer install --no-dev --prefer-dist --no-autoloader
+COPY vendor/ /var/www/vendor/
+RUN composer config --global --unset repos.packagist && \
+    composer config --global repos.packagist composer https://packagist.laravel-china.org && \
+    composer clear-cache && \
+    COMPOSER_PROCESS_TIMEOUT=1200 composer install --no-dev --prefer-dist --no-autoloader
 
 COPY . .
 RUN composer dump-autoload --optimize
