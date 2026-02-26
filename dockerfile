@@ -1,9 +1,14 @@
 # Используем стабильный базовый образ PHP с FPM
-FROM php:8.4-fpm
+FROM php:8.4-fpm-bullseye
+
+RUN echo "deb http://mirror.yandex.ru/debian/ bullseye main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb-src http://mirror.yandex.ru/debian/ bullseye main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://security.debian.org/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list
 
 # Устанавливаем зависимости в одном слое
 RUN set -eux; \
-    apt-get update && apt-get install -y --no-install-recommends \
+    apt-get update --fix-missing || (sleep 5 && apt-get update --fix-missing) && \
+    apt-get install -y --no-install-recommends \
         libpng-dev \
         zip \
         unzip \
