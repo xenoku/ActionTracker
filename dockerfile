@@ -1,24 +1,35 @@
-# Используем базовый образ PHP с установленным FPM и расширениями
+# Используем стабильный базовый образ PHP с FPM
 FROM php:8.4-fpm
 
-# Устанавливаем зависимости
-RUN apt update
-RUN apt install -y libpng-dev zip unzip curl git iproute2
-RUN docker-php-ext-install pdo pdo_mysql gd
+# Устанавливаем зависимости в одном слое
+RUN set -eux; \
+    apt-get update && apt-get install -y --no-install-recommends \
+        libpng-dev \
+        zip \
+        unzip \
+        curl \
+        git \
+        iproute2 \
+    && docker-php-ext-install -j$(nproc) pdo pdo_mysql gd \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Устанавливаем Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.5 /usr/bin/composer /usr/local/bin/composer
 
-# Копипуем файлы проекта в рабочую папку
+# Копируем файлы проекта
 WORKDIR /var/www
-COPY . /var/www
-RUN composer install
+COPY composer.json composer.lock* ./
+RUN composer install --no-dev --prefer-dist --no-autoloader
 
-# Устанавливаем права на папку storage
+COPY . .
+RUN composer dump-autoload --optimize
+
+# Устанавливаем права на папки
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Настраиваем PHP-FPM для работы на всех интерфейсах
 RUN sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /usr/local/etc/php-fpm.d/www.conf
 
 # Запускаем PHP-FPM
-CMD ["php-fpm"]
+CMD ["php-fpm", "--nodaemonize"]
