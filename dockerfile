@@ -1,44 +1,24 @@
-# Используем стабильный базовый образ PHP с FPM
-FROM php:8.4-fpm-bullseye
+# Используем базовый образ PHP с установленным FPM и расширениями
+FROM php:8.4-fpm
 
-RUN sed -i 's|deb.debian.org|mirror.yandex.ru|g' /etc/apt/sources.list && \
-    sed -i 's|security.debian.org|mirror.yandex.ru|g' /etc/apt/sources.list
-
-RUN set -eux; \
-    for i in {1..3}; do \
-        apt-get update && break || sleep 5; \
-    done && \
-    apt-get install -y --no-install-recommends \
-        libpng-dev \
-        zip \
-        unzip \
-        curl \
-        git \
-        iproute2 \
-    && docker-php-ext-install -j$(nproc) pdo pdo_mysql gd \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Устанавливаем зависимости
+RUN apt update
+RUN apt install -y libpng-dev zip unzip curl git iproute2
+RUN docker-php-ext-install pdo pdo_mysql gd
 
 # Устанавливаем Composer
-COPY --from=composer:2.5 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Копируем файлы проекта
+# Копипуем файлы проекта в рабочую папку
 WORKDIR /var/www
-COPY composer.json composer.lock* ./
-COPY vendor/ /var/www/vendor/
-RUN composer config --global --unset repos.packagist && \
-    composer config --global repos.packagist composer https://packagist.laravel-china.org && \
-    composer clear-cache && \
-    COMPOSER_PROCESS_TIMEOUT=1200 composer install --no-dev --prefer-dist --no-autoloader
+COPY . /var/www
+RUN composer install
 
-COPY . .
-RUN composer dump-autoload --optimize
-
-# Устанавливаем права на папки
+# Устанавливаем права на папку storage
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Настраиваем PHP-FPM для работы на всех интерфейсах
 RUN sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /usr/local/etc/php-fpm.d/www.conf
 
 # Запускаем PHP-FPM
-CMD ["php-fpm", "--nodaemonize"]
+CMD ["php-fpm"]
