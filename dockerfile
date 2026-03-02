@@ -15,6 +15,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Копипуем файлы проекта в рабочую папку
 WORKDIR /var/www
 COPY . /var/www
+COPY vendor/ /var/www/vendor/
 RUN composer install
 
 # Устанавливаем права на папку storage
